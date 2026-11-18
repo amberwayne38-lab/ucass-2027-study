@@ -69,8 +69,26 @@ function showPoints() {
   chapterSection = sectionsByPoint[first.id] || '';
   wrongOnly = false;
   updateView();
-  for (const point of politicsChapters.filter(p => p.course === course.value && p.chapter === chapter.value)) {
+  const points = politicsChapters.filter(p => p.course === course.value && p.chapter === chapter.value);
+  if (points.length > 3) {
+    const menu = document.createElement('details');
+    const heading = document.createElement('summary');
+    heading.textContent = '本章考点目录（' + points.length + '）';
+    const list = document.createElement('ul');
+    for (const point of points) {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = '#' + point.id;
+      link.textContent = point.concept;
+      item.append(link);
+      list.append(item);
+    }
+    menu.append(heading, list);
+    main.append(menu);
+  }
+  for (const point of points) {
     const article = document.createElement('article');
+    article.id = point.id;
     function add(tag,text,parent=article) {
       const el=document.createElement(tag); el.textContent=text; parent.append(el); return el;
     }
@@ -92,10 +110,10 @@ function openLocation() {
   const target = document.getElementById(location.hash.slice(1));
   const section = target?.closest('section');
   const id = Object.keys(sectionsByPoint).find(key => sectionsByPoint[key] === section?.id);
-  const point = politicsChapters.find(item => item.id === id);
+  const point = politicsChapters.find(item => item.id === location.hash.slice(1) || item.id === id);
   if (point) course.value = point.course;
   showChapters();
-  if (point) { chapter.value = point.chapter; showPoints(); target.scrollIntoView(); }
+  if (point) { chapter.value = point.chapter; showPoints(); document.getElementById(location.hash.slice(1))?.scrollIntoView(); }
 }
 window.addEventListener('hashchange',openLocation);
 openLocation();
