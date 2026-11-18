@@ -23,9 +23,9 @@
 <div class="weekly"><strong>德语：基础语法 → 易错搭配 → 翻译输出</strong><p>聚焦格位、弱变化、形容词词尾、关系从句和动词搭配。</p></div>
 <div class="weekly"><strong>888 与政治：短时输出、章节核对</strong><p>按真实资料训练，缺少已核实题目时不虚构练习完成记录。</p></div>
 </section>
-<section class="page" id="view-review" data-page="review"><h2 class="page-title">每周成果复盘</h2><p class="page-desc">展示本浏览器中能够核实的新训练模块记录。原 V6.7 的历史成绩暂未合并。</p>
-<div class="metrics"><div class="card"><small>文学已评价题数</small><b id="l-count">—</b></div><div class="card"><small>文学待巩固</small><b id="l-wrong">—</b></div><div class="card"><small>德语已评价题数</small><b id="g-count">—</b></div><div class="card"><small>德语待巩固</small><b id="g-wrong">—</b></div></div>
-<div class="weekly"><strong>如何使用本页</strong><p>答题后再回到这里查看新模块记录。当前不是跨设备或全站汇总，不会生成虚假的正确率或连续天数。</p></div></section>
+<section class="page" id="view-review" data-page="review"><h2 class="page-title">每周成果复盘</h2><p class="page-desc">读取本浏览器内三套新训练的真实记录。没有作答的项目不计入成绩。</p>
+<div class="metrics"><div class="card"><small>文学已评价题目</small><b id="l-count">—</b></div><div class="card"><small>德语已评价题目</small><b id="g-count">—</b></div><div class="card"><small>综合测评完成次数</small><b id="a-count">—</b></div><div class="card"><small>当前待巩固题目</small><b id="total-wrong">—</b></div></div>
+<div class="weekly"><strong>结果说明</strong><p id="review-summary">进入页面后汇总本机记录。不同模块的题目和评分方式不同，不能直接当成统一正确率。</p></div></section>
 <section class="page" id="view-resources" data-page="resources"><h2 class="page-title">复习资料</h2><p class="page-desc">原有资料直达，按主题或课次挑选，不再重复搬迁。</p>
 <div class="resource"><h3>文学逻辑实验室｜英美文学备考</h3><p>已整理的文学术语、作品与答题材料。</p><a href="./literature-knowledge.html">打开资料 ↗</a></div>
 <div class="resource"><h3>737｜已核实来源题目索引</h3><p>按国家、文学时期和题型筛选。</p><a href="./literature-source-index-737.html">打开资料 ↗</a></div>
@@ -34,23 +34,40 @@
 <div class="resource"><h3>德语词组与写作</h3><p>已有固定搭配及德语作文模板。</p><a href="./german-phrases-quick500.html">词组 ↗</a> <a href="./german-writing.html">写作 ↗</a></div>
 <div class="resource"><h3>888翻译与政治资料</h3><p>直接进入原有资料页面。</p><a href="./translation-reminders-888.html">888翻译 ↗</a> <a href="./politics-review.html">政治 ↗</a></div>
 </section>
-<section class="page" id="view-records" data-page="records"><h2 class="page-title">练习记录</h2><p class="page-desc">近期训练反馈优先，但新模块与旧题库目前仍独立保存。</p>
-<div class="resource"><h3>文学主动回忆记录</h3><p>按回答后的掌握自评进行间隔复习。</p><a href="./literature-active-recall.html">继续练习 ↗</a></div>
-<div class="resource"><h3>德语近期错项记录</h3><p>保存“已掌握 / 部分掌握 / 不会”的本机结果。</p><a href="./german-adaptive-practice.html">继续练习 ↗</a></div>
-<div class="resource"><h3>V6.7原练习记录</h3><p>旧题库和原学习记录仍由原系统管理。</p><a href="./ucass2027-v6-7-integrated-ready.html">查看旧题库 ↗</a></div></section>
+<section class="page" id="view-records" data-page="records"><h2 class="page-title">学习记录与复习队列</h2><p class="page-desc">从文学、德语、三科智能测评读取已保存的练习反馈，优先显示答错、部分掌握和到期题目。</p>
+<div class="panel" style="padding:16px 18px"><div class="sectionhead" style="margin:0 0 10px"><h2>优先复习</h2><span id="queue-total">读取中</span></div><div id="review-queue" aria-live="polite"></div></div>
+<div class="resource"><h3>文学主动回忆</h3><p>已评价 <b id="l-records">—</b> 题；待巩固 <b id="l-wrong">—</b> 题。</p><a href="./literature-active-recall.html">继续练习</a></div>
+<div class="resource"><h3>德语近期错项</h3><p>已评价 <b id="g-records">—</b> 题；待巩固 <b id="g-wrong">—</b> 题。</p><a href="./german-adaptive-practice.html">继续练习</a></div>
+<div class="resource"><h3>三科智能测评</h3><p>已完成 <b id="a-records">—</b> 套；需巩固的已测题目 <b id="a-wrong">—</b> 道。</p><a href="./three-subject-assessment.html">继续测评</a></div>
+<div class="resource"><h3>原 V6.7 记录</h3><p>原版独立存储，目前未自动纳入本页汇总；不会删除或覆盖。</p><a href="./ucass2027-v6-7-integrated-ready.html">打开原题库</a></div></section>
 <p class="foot">原 GitHub 项目和旧题库保持不变。本站的训练统计只取可核实的本机数据；资料页面与训练页面保持各自已约定的浅绿／紫色风格。</p></main>
 <script>
 (function(){
+const $=id=>document.getElementById(id);
+try{$('today').textContent=new Intl.DateTimeFormat('zh-CN',{month:'long',day:'numeric',weekday:'long',timeZone:'Asia/Shanghai'}).format(new Date())}catch(e){}
+function read(key){try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):{}}catch(e){return{}}}
+function validRecords(obj){return Object.entries(obj||{}).filter(([id,v])=>v&&typeof v==='object'&&typeof v.rating==='string').map(([id,v])=>({id,v}))}
+const today=()=>new Date().toLocaleDateString('sv-SE');
+function dateString(v){return typeof v==='string'?v.slice(0,10):''}
+function update(){
 try{
-const el=document.getElementById('today');
-if(el)el.textContent=new Intl.DateTimeFormat('zh-CN',{month:'long',day:'numeric',weekday:'long',timeZone:'Asia/Shanghai'}).format(new Date());
-function from(key,ids){try{const obj=JSON.parse(localStorage.getItem(key)||'{}')||{};const v=Object.values(obj).filter(x=>x&&typeof x==='object');document.getElementById(ids[0]).textContent=v.length;document.getElementById(ids[1]).textContent=v.filter(x=>x.rating!=='know').length}catch(e){document.getElementById(ids[0]).textContent='—';document.getElementById(ids[1]).textContent='—'}}
-function stats(){from('ucass_literature_recall_v1',['l-count','l-wrong']);from('ucass_german_adaptive_v1',['g-count','g-wrong'])}
-const tabs=[...document.querySelectorAll('a[data-tab]')];
-function refresh(){const h=location.hash.slice(1);tabs.forEach(x=>x.classList.toggle('active',x.getAttribute('href')==='#'+h));if(h==='view-review')stats()}
-window.addEventListener('hashchange',refresh);
-tabs.forEach(x=>x.addEventListener('click',()=>{if(x.dataset.tab==='review')stats()}));
-refresh();
-}catch(e){}
+const l=validRecords(read('ucass_literature_recall_v1')),g=validRecords(read('ucass_german_adaptive_v1'));
+const ass=read('ucass2027_three_subject_assessment_v1');const attempts=Array.isArray(ass.attempts)?ass.attempts:[],st=ass.stats&&typeof ass.stats==='object'?ass.stats:{};
+const a=Object.entries(st).filter(([id,v])=>v&&typeof v==='object'&&(v.seen||0)>0);
+const lw=l.filter(x=>x.v.rating!=='know'),gw=g.filter(x=>x.v.rating!=='know'),aw=a.filter(([id,v])=>v.level==='wrong'||v.level==='partial');
+const counts={'l-count':l.length,'g-count':g.length,'a-count':attempts.length,'total-wrong':lw.length+gw.length+aw.length,'l-records':l.length,'g-records':g.length,'a-records':attempts.length,'l-wrong':lw.length,'g-wrong':gw.length,'a-wrong':aw.length};
+Object.entries(counts).forEach(([id,num])=>{if($(id))$(id).textContent=String(num)});
+const queue=[];
+l.forEach(({id,v})=>{const due=dateString(v.next)<=today();if(v.rating!=='know'||due)queue.push({subject:'737文学',topic:'主动回忆 · '+(Number(id)+1)+'号题',reason:v.rating==='miss'?'答错':v.rating==='partial'?'部分掌握':'到期回顾',level:v.rating==='miss'?0:v.rating==='partial'?1:2,date:v.last||0,url:'./literature-active-recall.html'})});
+g.forEach(({id,v})=>{const due=dateString(v.next)<=today();if(v.rating!=='know'||due)queue.push({subject:'二外德语',topic:'错项 · '+id.replace(/^de-r/,'')+'号题',reason:v.rating==='miss'?'答错':v.rating==='partial'?'部分掌握':'到期回顾',level:v.rating==='miss'?0:v.rating==='partial'?1:2,date:v.last||0,url:'./german-adaptive-practice.html'})});
+a.forEach(([id,v])=>{if(v.level==='wrong'||v.level==='partial')queue.push({subject:id.includes('-l')?'737文学':id.includes('-g')?'二外德语':'888翻译',topic:'综合测评 · '+id,reason:v.level==='wrong'?'答错':'部分掌握',level:v.level==='wrong'?0:1,date:v.last||0,url:'./three-subject-assessment.html'})});
+queue.sort((x,y)=>x.level-y.level||y.date-x.date);
+const root=$('review-queue');root.replaceChildren();$('queue-total').textContent=queue.length+'项';
+if(!queue.length){const p=document.createElement('p');p.className='foot';p.textContent='暂无待巩固记录。开始练习后，这里会按实际作答表现更新。';root.appendChild(p)}
+queue.slice(0,12).forEach(item=>{const a=document.createElement('a');a.href=item.url;a.className='task task-link';const div=document.createElement('div');const strong=document.createElement('strong');strong.textContent=item.subject+' · '+item.topic;div.appendChild(strong);const span=document.createElement('span');span.className='tag';span.textContent=item.reason;div.appendChild(span);a.appendChild(div);root.appendChild(a)});
+$('review-summary').textContent='文学 '+l.length+' 题、德语 '+g.length+' 题已评价；三科综合测评完成 '+attempts.length+' 套。待巩固 '+(lw.length+gw.length+aw.length)+' 项（不同模块同一知识点可能各计一次）。';
+}catch(e){const root=$('review-queue');if(root)root.textContent='记录暂时无法读取。原练习数据未受影响。'}
+}
+window.addEventListener('pageshow',update);window.addEventListener('storage',update);update();
 })();
 </script></body></html>
