@@ -1,20 +1,20 @@
 {
-  "name": "社科大2027四科复习",
+  "name": "社科大2027备考",
   "short_name": "社科大2027",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#f2f6f5",
-  "theme_color": "#155b55",
+  "background_color": "#f8f6fb",
+  "theme_color": "#39214f",
   "icons": [
     {
-      "src": "/study-icon.svg",
+      "src": "/study-icon.svg?v=2",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/study-icon.svg",
+      "src": "/study-icon.svg?v=2",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"
