@@ -56,14 +56,30 @@ function rank(q){
 function ordered(){const arr=current();if(subject!=='german'||mode==='good')return arr;return arr.map((q,i)=>({q,i})).sort((a,b)=>rank(b.q)-rank(a.q)||a.i-b.i).map(x=>x.q)}
 function visible(){return ordered().slice(page*batch,(page+1)*batch)}
 function card(q,i){const entry=state.answers[q.id],isShown=expanded.has(q.id);let opts='';if(q.kind==='mcq')opts=`<div class="opts">${q.o.map((label,j)=>{const chosen=entry?.choice===j,correct=entry&&q.k===j;return `<button class="opt ${chosen?'selected':''} ${chosen?(correct?'good':'bad'):''} ${entry&&correct?'reveal':''}" data-do="choose" data-id="${q.id}" data-c="${j}">${'ABCD'[j]}. ${safe(label)}</button>`}).join('')}</div>`;
+if(q.kind==='multi'){
+  opts='<fieldset><legend>多项选择</legend>'+q.o.map((label,j)=>
+    '<label style="display:block;padding:.4em"><input type="checkbox" value="'+j+'"> '+'ABCD'[j]+'. '+safe(label)+'</label>'
+  ).join('')+'<button data-do="submit-multi" data-id="'+q.id+'">提交答案</button><span role="status"></span></fieldset>';
+}
 const rawanswer=q.kind==='mcq'?`答案：${'ABCD'[q.k]} · ${safe(q.o[q.k])}`:`参考：${safe(q.answer)}`;
-const mark=state.marks[q.id];return `<article class="card" data-card="${q.id}"><div class="meta"><span>${i+page*batch+1}</span><span class="tag">${safe(q.topic)}</span><span>${safe(q.typeGroup)}</span><span>${safe(q.reviewStatus)}</span><span>${safe(q.t)}</span><span>${safe(q.origin)}</span></div><div class="prompt">${safe(q.p)}</div>${opts}<div class="foot"><button data-do="reveal" data-id="${q.id}">${isShown?'收起答案':'👁 看答案'}</button><button data-do="good" class="${mark==='good'?'active good':''}" data-id="${q.id}">✓ 会了</button><button data-do="wrong" class="${mark==='wrong'?'active bad':''}" data-id="${q.id}">↻ 不会</button><span class="small" data-feedback="${q.id}">${entry?(entry.correct?'✅ 已答对':'❌ 需复习'):(mark==='wrong'?'待复习':'')}</span></div><div class="answer ${isShown?'show':''}" data-answer="${q.id}"><b>${rawanswer}</b>${q.exp?`<div>${safe(q.exp)}</div>`:''}<div class="src">来源：${safe(q.src)}</div></div></article>`}
+const lastChoices=q.kind==='multi' && Array.isArray(entry?.choice) && isShown
+  ? '<p>上次选择：'+entry.choice.map(i=>'ABCD'[i]).join('、')+'</p>' : '';
+const mark=state.marks[q.id];return `<article class="card" data-card="${q.id}"><div class="meta"><span>${i+page*batch+1}</span><span class="tag">${safe(q.topic)}</span><span>${safe(q.typeGroup)}</span><span>${safe(q.reviewStatus)}</span><span>${safe(q.t)}</span><span>${safe(q.origin)}</span></div><div class="prompt">${safe(q.p)}</div>${opts}<div class="foot"><button data-do="reveal" data-id="${q.id}">${isShown?'收起答案':'👁 看答案'}</button><button data-do="good" class="${mark==='good'?'active good':''}" data-id="${q.id}">✓ 会了</button><button data-do="wrong" class="${mark==='wrong'?'active bad':''}" data-id="${q.id}">↻ 不会</button><span class="small" data-feedback="${q.id}">${entry?(entry.correct?'✅ 已答对':'❌ 需复习'):(mark==='wrong'?'待复习':'')}</span></div><div class="answer ${isShown?'show':''}" data-answer="${q.id}"><b>${rawanswer}</b>${lastChoices}${q.exp?`<div>${safe(q.exp)}</div>`:''}<div class="src">来源：${safe(q.src)}</div></div></article>`}
 function render(){progress();const arr=ordered().filter(q=>q.qualityIssue!=="fragment"),total=Math.max(1,Math.ceil(arr.length/batch));page=Math.min(Math.max(page,0),total-1);const slice=arr.slice(page*batch,(page+1)*batch);const subData=BANK.filter(q=>inSubject(q,subject));const wrong=subData.filter(q=>state.marks[q.id]==='wrong').length;const correct=subData.filter(q=>state.marks[q.id]==='good').length;
 $('summary').innerHTML=`${subject==='german'?'德语按错题 → 重点搭配与教材词汇 → 翻译语法排序 · ':''}当前 <b>${arr.length}</b> 项 · 错题 <b>${wrong}</b> · 已会 <b>${correct}</b>`;$('cards').innerHTML=slice.length?slice.map(card).join(''):'<div class="empty">当前没有待做题目。可切换“错题”复习，或选择“全部”查看历史题目。</div>';$('pageLabel').textContent=`${page+1} / ${total} 页 · 本页${slice.length}题`;$('prev').disabled=page===0;$('next').disabled=page>=total-1;}
 function touch(q){state.seen[q.id]=true;persist()}
 $('cards').addEventListener('click',e=>{const btn=e.target.closest('[data-do]');if(!btn)return;const id=btn.dataset.id,q=BANK.find(x=>x.id===id);if(!q)return;const card=btn.closest('.card'),action=btn.dataset.do;
 if(action==='reveal'){if(expanded.has(id))expanded.delete(id);else expanded.add(id);touch(q);const ans=card.querySelector('[data-answer]');const shown=expanded.has(id);ans.classList.toggle('show',shown);btn.textContent=shown?'收起答案':'👁 看答案';return}
-if(action==='choose'){if(!sessionCompleted.has(id))sessionCompleted.set(id,rank(q));let choice=Number(btn.dataset.c);let correct=choice===q.k;const before=state.answers[id];state.answers[id]={choice,correct,date:new Date().toISOString(),attempts:(before?.attempts||0)+1};state.history.push({id,choice,correct,date:new Date().toISOString()});state.marks[id]=correct?'good':'wrong';expanded.add(id);touch(q);const idx=visible().findIndex(x=>x.id===id);const fresh=document.createElement('div');fresh.innerHTML=cardHTMLNoWrap(q,idx);card.replaceWith(fresh.firstElementChild);updateStats();return}
+if(action==='choose'||action==='submit-multi'){let choice,correct;
+if(action==='submit-multi'){
+  choice=Array.from(card.querySelectorAll('input:checked'),input=>Number(input.value));
+  if(!choice.length){card.querySelector('[role=status]').textContent='请先选择选项';return}
+  correct=choice.length===q.keys.length && choice.every(index=>q.keys.includes(index));
+}else{
+  choice=Number(btn.dataset.c);correct=choice===q.k;
+}
+if(!sessionCompleted.has(id))sessionCompleted.set(id,rank(q));
+const before=state.answers[id];state.answers[id]={choice,correct,date:new Date().toISOString(),attempts:(before?.attempts||0)+1};state.history.push({id,choice,correct,date:new Date().toISOString()});state.marks[id]=correct?'good':'wrong';expanded.add(id);touch(q);const idx=visible().findIndex(x=>x.id===id);const fresh=document.createElement('div');fresh.innerHTML=cardHTMLNoWrap(q,idx);card.replaceWith(fresh.firstElementChild);updateStats();return}
 if(action==='good'||action==='wrong'){if(!sessionCompleted.has(id))sessionCompleted.set(id,rank(q));if(state.marks[id]===action){delete state.marks[id]}else{state.marks[id]=action}touch(q);const idx=visible().findIndex(x=>x.id===id);const fresh=document.createElement('div');fresh.innerHTML=cardHTMLNoWrap(q,idx);card.replaceWith(fresh.firstElementChild);updateStats();return}
 });
 function cardHTMLNoWrap(q,i){return card(q,Math.max(0,i))}

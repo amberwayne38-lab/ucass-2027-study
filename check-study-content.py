@@ -45,6 +45,14 @@ def check():
     for point in points:
         if not point['source'] or len(set(point['options'])) != 4 or point['options'].count(point['answer']) != 1:
             errors.append(point['id'])
+        multi = point.get('multiple')
+        if multi:
+            options, keys = multi['options'], multi['correct']
+            if len(options) != 4 or len(set(options)) != 4 or not (2 <= len(keys) < 4) or keys != sorted(set(keys)) or any(k not in range(4) for k in keys) or not multi['explanation']:
+                errors.append(f'Invalid multi-select: {point["id"]}')
+    all_prompts = [p['question'] for p in points] + [p['multiple']['prompt'] for p in points if p.get('multiple')]
+    if len(set(all_prompts)) != len(all_prompts):
+        errors.append('Duplicate politics choice prompt')
     if errors:
         raise SystemExit('\n'.join(errors))
 
