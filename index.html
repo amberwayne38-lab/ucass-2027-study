@@ -1,15 +1,15 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>社科大2027｜四科复习</title><style>*{box-sizing:border-box}body{margin:0;font-family:-apple-system,system-ui,sans-serif;color:#153d41;background:#f2f6f5}header{padding:10px 12px;background:#fff;border-bottom:1px solid #d4e3df;display:flex;gap:8px;align-items:center;flex-wrap:wrap}input{min-width:135px;max-width:230px;padding:9px;border:1px solid #aac6c1;border-radius:7px}button{padding:9px;border:0;border-radius:7px;background:#155b55;color:white;font:inherit}button:disabled{opacity:.5}#sync-status{font-size:12px;color:#35625d}#sync-conflict{padding:10px;background:#fff4db}#study-frame{width:100%;height:calc(100dvh - 100px);border:0;display:block}#sync-login{display:flex;gap:6px;align-items:center;flex-wrap:wrap}small{font-size:12px}</style></head><body><header><strong>社科大2027</strong><small>学习记录保存在本机浏览器</small><button id="new-german" type="button">查看新增德语20题</button><small id="update-note">等待题库加载</small></header><iframe id="study-frame" title="四科复习题库" src="./ucass2027-v6-2-deploy-index.html"></iframe><script src="./literature-quality-patch.js"></script><script>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>社科大2027｜四科复习</title><style>*{box-sizing:border-box}body{margin:0;font-family:-apple-system,system-ui,sans-serif;color:#153d41;background:#f2f6f5}header{padding:7px 10px;background:#fff;border-bottom:1px solid #d4e3df;display:flex;gap:8px;align-items:center;flex-wrap:wrap}input{min-width:135px;max-width:230px;padding:9px;border:1px solid #aac6c1;border-radius:7px}button{padding:6px 9px;border:0;border-radius:7px;background:#155b55;color:white;font:inherit}button:disabled{opacity:.5}#sync-status{font-size:12px;color:#35625d}#sync-conflict{padding:10px;background:#fff4db}#study-frame{width:100%;height:calc(100dvh - 68px);border:0;display:block}#sync-login{display:flex;gap:6px;align-items:center;flex-wrap:wrap}small{font-size:12px}</style></head><body><header><strong>社科大2027</strong><button id="new-german" type="button">新增德语题</button><small id="update-note" aria-live="polite"></small></header><iframe id="study-frame" title="四科复习题库" src="./ucass2027-v6-2-deploy-index.html"></iframe><script src="./literature-quality-patch.js"></script><script>
 (function(){
 const frame=document.getElementById('study-frame');
 const note=document.getElementById('update-note');
 const btn=document.getElementById('new-german');
 function showNew(){
- try{frame.contentWindow.eval("subject='german';mode='all';topic='功能动词结构 · B1应用';type='';typeGroup='';review='';search='';page=0;subjects();filters();render()");note.textContent='已切换到新增德语题';}catch(e){note.textContent='切换失败，请刷新后重试';}
+ try{frame.contentWindow.eval("subject='german';mode='all';topic='功能动词结构 · B1应用';type='';typeGroup='';review='';search='';page=0;subjects();filters();render()");note.textContent='已筛选';}catch(e){note.textContent='切换失败，请刷新后重试';}
 }
 btn.addEventListener('click',showNew);
 frame.addEventListener('load',function(){
  const d=frame.contentDocument,s=d.createElement('script');
- s.src='./german-advanced-update.js?v=20261118b';
+ s.src='./german-advanced-update.js?v=20261118c';
  s.onload=function(){try{const n=frame.contentWindow.eval("BANK.filter(q=>q.id.startsWith('web-20261118-fvg-')).length");note.textContent=n===20?'新增20道德语题已载入':'新增题数量异常：'+n;}catch(e){note.textContent='题库检查失败'}};
  s.onerror=function(){note.textContent='新题脚本加载失败'};
  d.body.appendChild(s);
