@@ -5,7 +5,7 @@ import json
 import re
 
 ROOT = Path(__file__).resolve().parent
-BATCH = re.compile(r'印刷页|(?:PDF|教材|原书)?第\s*\d+(?:\s*[—–至-]\s*\d+)?\s*页|(?<!\w)p\.\s*\d+|第[一二三四五六七八九十\d]+批|处理批次', re.I)
+BATCH = re.compile(r'印刷页|(?:PDF|教材|原书)?第\s*\d+(?:\s*[—–至-]\s*\d+)?\s*页|(?<!\w)p\.\s*\d+|^p\s*\d+$|第[一二三四五六七八九十\d]+批|处理批次', re.I)
 
 
 class Titles(HTMLParser):
