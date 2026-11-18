@@ -1,0 +1,17 @@
+{
+  "name": "社科大2027四科复习",
+  "short_name": "社科大2027",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f2f6f5",
+  "theme_color": "#155b55",
+  "icons": [
+    {
+      "src": "./study-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
