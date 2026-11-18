@@ -8,10 +8,17 @@
   "theme_color": "#155b55",
   "icons": [
     {
-      "src": "./study-icon.svg",
+      "src": "/study-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/study-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
-  ]
+  ],
+  "id": "/"
 }
